@@ -2,24 +2,13 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Reveal } from './Reveal';
-
-interface Project {
-    id: number;
-    title: string;
-    category: string;
-    image: string;
-}
-
-const PROJECTS: Project[] = [
-    { id: 1, title: 'Loans App', category: 'Java / Spring Boot / JavaFX', image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1470&auto=format&fit=crop' },
-    { id: 2, title: 'Game Strategy with Algorithms Sort', category: 'Java / Algorithms / CLI', image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1470&auto=format&fit=crop' },
-    { id: 3, title: 'App Management Hospital(MVP)', category: 'JavaFX / PostgreSQL', image: 'https://images.unsplash.com/photo-1538108149393-fbbd81895907?q=80&w=2828&auto=format&fit=crop' },
-    { id: 4, title: 'Not-To-Do Tracker', category: 'Java / MongoDB', image: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=80&w=1472&auto=format&fit=crop' }
-];
+import { useLanguage } from '../context/LanguageContext';
 
 export const Showcase = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
+    const { t } = useLanguage();
+    const PROJECTS = t.showcase.projects;
 
     // Auto-play carousel with pause functionality
     useEffect(() => {
@@ -30,7 +19,7 @@ export const Showcase = () => {
         }, 8000); // Change every 8 seconds
 
         return () => clearInterval(interval);
-    }, [isPaused]);
+    }, [isPaused, PROJECTS.length]);
 
     // Resume auto-play after 30 seconds of pause
     useEffect(() => {
@@ -61,12 +50,12 @@ export const Showcase = () => {
     const activeProject = PROJECTS[activeIndex];
 
     return (
-        <section id="work" className="py-32 bg-zinc-950">
+        <section id="work" className="py-32 relative">
             <div className="container mx-auto px-6">
                 <Reveal>
                     <div className="flex items-end justify-between mb-20">
-                        <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-white">Selected Work</h2>
-                        <span className="hidden md:block text-zinc-500">2021 - 2024</span>
+                        <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-white">{t.showcase.title}</h2>
+
                     </div>
                 </Reveal>
 
@@ -152,7 +141,7 @@ export const Showcase = () => {
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.2 }}
-                                    className="text-4xl md:text-5xl font-bold text-white tracking-tight"
+                                    className="text-3xl md:text-5xl font-bold text-white tracking-tight"
                                 >
                                     {activeProject.title}
                                 </motion.h3>
