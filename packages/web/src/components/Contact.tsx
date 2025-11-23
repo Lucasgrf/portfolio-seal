@@ -1,19 +1,22 @@
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { Reveal } from './Reveal';
+import { useLanguage } from '../context/LanguageContext';
 
 export const Contact = () => {
+    const { t } = useLanguage();
+
     return (
-        <section id="contact" className="py-32 bg-zinc-950 border-t border-white/5">
+        <section id="contact" className="py-32 border-t border-white/5 relative">
             <div className="container mx-auto px-6">
                 <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
                     <Reveal>
-                        <h2 className="text-5xl md:text-8xl font-bold tracking-tighter text-white mb-12">Let's work together</h2>
+                        <h2 className="text-5xl md:text-8xl font-bold tracking-tighter text-white mb-12">{t.contact.title}</h2>
                     </Reveal>
 
                     <Reveal delay={0.2}>
                         <a
                             href="mailto:lucasgabrielrf.contato@gmail.com"
-                            className="text-2xl md:text-4xl text-zinc-400 hover:text-white transition-colors border-b border-zinc-700 hover:border-white pb-2 mb-16 inline-block"
+                            className="text-lg md:text-4xl text-zinc-400 hover:text-white transition-colors border-b border-zinc-700 hover:border-white pb-2 mb-16 inline-block"
                         >
                             lucasgabrielrf.contato@gmail.com
                         </a>
@@ -23,9 +26,9 @@ export const Contact = () => {
                         <Reveal delay={0.3}>
                             <div className="flex gap-4">
                                 {[
-                                    { Icon: Github, label: 'GitHub', href: 'https://github.com/lucasgrf' },
-                                    { Icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/lucasgrf' },
-                                    { Icon: Mail, label: 'Email', href: 'mailto:lucasgabrielrf.contato@gmail.com' }
+                                    { Icon: Github, label: t.contact.githubLabel, href: 'https://github.com/lucasgrf' },
+                                    { Icon: Linkedin, label: t.contact.linkedinLabel, href: 'https://www.linkedin.com/in/lucasgrf' },
+                                    { Icon: Mail, label: t.contact.emailLabel, href: 'mailto:lucasgabrielrf.contato@gmail.com' }
                                 ].map(({ Icon, label, href }, i) => (
                                     <a
                                         key={i}
